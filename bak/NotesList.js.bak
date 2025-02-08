@@ -1,0 +1,126 @@
+// frontend/src/components/NotesList.js
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { noteApi } from '../services/api';
+
+const NotesList = () => {
+  const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  // Load notes when component mounts or page changes
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+        setLoading(true);
+        const response = await noteApi.getNotes(page);
+        setNotes(response.data.notes);
+        // Calculate total pages based on total count and limit
+        setTotalPages(Math.ceil(response.data.total / 10));
+      } catch (err) {
+        setError('Failed to load notes. Please try again later.');
+        console.error('Error fetching notes:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNotes();
+  }, [page]);
+
+  // Loading state
+  if (loading && notes.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-red-600 mb-4">{error}</div>
+        <button
+          onClick={() => setPage(1)}
+          className="text-indigo-600 hover:text-indigo-800"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">My Study Notes</h1>
+        <Link
+          to="/"
+          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+        >
+          Create New Notes
+        </Link>
+      </div>
+
+      {/* Notes grid */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {notes.map((note) => (
+          <Link
+            key={note.id}
+            to={`/notes/${note.id}`}
+            className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+          >
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                {note.title}
+              </h2>
+              <p className="text-gray-600 mb-4">{note.topic}</p>
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>{note.level}</span>
+                <span>{new Date(note.created_at).toLocaleDateString()}</span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8 space-x-2">
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className={`px-4 py-2 rounded-md ${
+              page === 1
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-indigo-600 text-white hover:bg-indigo-700'
+            }`}
+          >
+            Previous
+          </button>
+          <span className="px-4 py-2 text-gray-700">
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className={`px-4 py-2 rounded-md ${
+              page === totalPages
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-indigo-600 text-white hover:bg-indigo-700'
+            }`}
+          >
+            Next
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default NotesList;

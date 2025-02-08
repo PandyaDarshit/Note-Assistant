@@ -1,0 +1,71 @@
+/* frontend/src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 
+           focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 
+           transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-md 
+           hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 
+           focus:ring-offset-2 transition-colors duration-200;
+  }
+
+  .form-input {
+    @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm 
+           focus:border-indigo-500 focus:ring-indigo-500;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .prose-custom {
+    @apply prose prose-indigo max-w-none prose-headings:text-gray-900 
+           prose-p:text-gray-600 prose-a:text-indigo-600 prose-a:no-underline 
+           hover:prose-a:text-indigo-500;
+  }
+
+  .markdown-content {
+    @apply prose prose-indigo max-w-none;
+  }
+}
+
+/* Animation utilities */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
