@@ -1,22 +1,36 @@
 # Mukti: AI-Powered Study Notes Assistant 📚
 
-Mukti is an intelligent study assistant that transforms your learning experience by generating personalized study notes using advanced AI technology. Leveraging Ollama's phi4:14b model, it adapts content based on your learning style and proficiency level, making learning more effective and engaging.
+Transform your learning experience with Mukti, an intelligent study assistant that generates personalized study notes using advanced AI technology. Built on Ollama's phi4:14b model, Mukti adapts content based on your unique learning style and proficiency level, making learning more effective and engaging.
 
 ![Mukti Demo](demo.gif)
 
-## 🌟 Features
+## Features 🌟
 
-Mukti brings personalized learning to your fingertips with features designed to enhance your study experience:
+Mukti transforms traditional studying through these powerful features:
 
-- **Personalized Note Generation**: Creates study materials tailored to your learning style and level
-- **Learning Style Adaptation**: Supports visual, auditory, reading/writing, and kinesthetic learning preferences
-- **Interactive Content**: Generates structured notes with real-world examples and practice exercises
-- **Easy Navigation**: Browse and organize your study materials effortlessly
-- **Smart Content Organization**: Automatically generates table of contents and structured sections
+### Personalized Learning Experience
 
-## 🏗️ Architecture
+Our assistant creates study materials perfectly matched to your needs by understanding your learning style and level of expertise. The system continuously adapts to provide the most effective learning experience for you.
 
-Mukti follows a modern microservices architecture, integrating powerful technologies to deliver a seamless learning experience:
+### Intelligent Content Adaptation
+
+The system supports multiple learning modalities:
+- Visual learners receive diagram-rich content
+- Auditory learners get conversation-style explanations
+- Reading/writing preferences are met with structured text
+- Kinesthetic learners receive interactive exercises
+
+### Smart Organization
+
+Navigate your study materials effortlessly with:
+- Automatically generated tables of contents
+- Hierarchical content structure
+- Intelligent topic linking
+- Quick search and retrieval
+
+## Architecture 🏗️
+
+Mukti employs a modern microservices architecture to deliver seamless learning experiences:
 
 ```mermaid
 flowchart TB
@@ -33,52 +47,69 @@ flowchart TB
     end
 
     OllamaServer -->|phi4:14b model| OllamaService
+```
 
-🚀 Getting Started
-Prerequisites
-Before running Mukti, ensure you have:
+## Getting Started 🚀
 
-Docker and Docker Compose (version 1.29.2 or higher)
-Access to an Ollama server with phi4:14b model
+### Prerequisites
 
-Quick Start
+Before running Mukti, ensure your system meets these requirements:
 
-Clone the repository:
+- Docker and Docker Compose (version 1.29.2 or higher)
+- Access to an Ollama server with phi4:14b model installed
+- Minimum 4GB RAM for optimal performance
+- Stable internet connection for AI model access
 
-bashCopygit clone https://github.com/yourusername/mukti-study-assistant.git
-cd mukti-study-assistant
+### Installation
 
-Configure environment variables:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/mukti-study-assistant.git
+   cd mukti-study-assistant
+   ```
 
-bashCopy# Copy example environment files
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
+2. Configure your environment:
+   ```bash
+   # Copy configuration templates
+   cp backend/.env.example backend/.env
+   cp frontend/.env.example frontend/.env
+   
+   # Update configurations with your settings
+   ```
 
-# Update with your configurations
+3. Launch the application:
+   ```bash
+   docker-compose up --build
+   ```
 
-Launch the application:
+4. Access your installation:
+   - Frontend Interface: http://localhost:3000
+   - API Documentation: http://localhost:8000/docs
 
-bashCopydocker-compose up --build
+## Development Guide 💻
 
-Access Mukti:
+### Backend Development
 
-
-Frontend: http://localhost:3000
-API Documentation: http://localhost:8000/docs
-
-💻 Development Setup
-Backend Development
-bashCopycd backend
+```bash
+cd backend
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-Frontend Development
-bashCopycd frontend
+```
+
+### Frontend Development
+
+```bash
+cd frontend
 npm install
 npm start
-📁 Project Structure
-Copymukti-study-assistant/
+```
+
+## Project Structure 📁
+
+```
+mukti-study-assistant/
 ├── backend/
 │   ├── app/
 │   │   ├── services/
@@ -97,73 +128,80 @@ Copymukti-study-assistant/
 │   ├── package.json
 │   └── Dockerfile
 └── docker-compose.yml
-🤝 Contributing
-We welcome contributions to make Mukti even better! Here's how you can help:
+```
 
-Fork the repository
-Create a feature branch (git checkout -b feature/amazing-feature)
-Commit your changes (git commit -m 'Add amazing feature')
-Push to the branch (git push origin feature/amazing-feature)
-Open a Pull Request
+## Contributing 🤝
 
-Please read CONTRIBUTING.md for detailed guidelines.
-🧪 Testing
-Run the test suites to ensure everything works correctly:
-bashCopy# Backend tests
+We welcome contributions that make Mukti even better! Here's how to get involved:
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+Please review our CONTRIBUTING.md for detailed guidelines.
+
+## Testing 🧪
+
+Ensure code quality by running our comprehensive test suites:
+
+```bash
+# Backend tests
 cd backend
 pytest
 
 # Frontend tests
 cd frontend
 npm test
-📋 Environment Configuration
-Required environment variables:
-envCopy# Backend (.env)
+```
+
+## Environment Configuration 📋
+
+Configure these essential environment variables:
+
+```env
+# Backend (.env)
 OLLAMA_API_URL=your-ollama-server-url
 OLLAMA_MODEL=phi4:14b
 DATABASE_URL=postgresql://user:password@db:5432/notes
 
 # Frontend (.env)
 REACT_APP_API_URL=http://localhost:8000
-🗺️ Roadmap
-Future enhancements planned:
+```
 
-Enhanced search functionality
-User authentication and profiles
-Collaborative note sharing
-Mobile application
-Offline support
-Integration with popular learning management systems
+## Roadmap 🗺️
 
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-🙏 Acknowledgments
+Our vision for Mukti's future includes:
 
-Built with FastAPI and React
-Powered by Ollama's phi4:14b model
-Styled with Tailwind CSS
-Special thanks to all our contributors
+- Enhanced search functionality with natural language processing
+- User authentication with personalized learning profiles
+- Collaborative note sharing and study groups
+- Cross-platform mobile application
+- Offline study capabilities
+- Integration with popular learning management systems
 
-💬 Support
-Need help? Feel free to:
+## License 📄
 
-Open an issue
-Join our Discord community
-Check out our Documentation
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Acknowledgments 🙏
+
+This project stands on the shoulders of giants:
+
+- Built with FastAPI and React
+- Powered by Ollama's phi4:14b model
+- Styled with Tailwind CSS
+- Supported by our amazing community of contributors
+
+## Support 💬
+
+Need assistance? We're here to help:
+
+- Open an issue in our GitHub repository
+- Join our Discord community
+- Visit our comprehensive documentation
+
+---
 
 Made with ❤️ by the Mukti team
-Copy
-This README:
-- Uses GitHub-style markdown formatting
-- Includes emojis for better visual organization
-- Provides clear sections with proper hierarchy
-- Includes a mermaid diagram for architecture visualization
-- Maintains professional yet friendly tone
-- Provides comprehensive information for users and contributors
-
-Would you like me to:
-1. Add more technical details to any section?
-2. Include additional setup scenarios?
-3. Expand the contributing guidelines?
-4. Add more visual elements?
